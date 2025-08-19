@@ -79,3 +79,29 @@ body {
   border: 1px solid rgba(0, 186, 255, 1);
 }
 
+/* Error Message for Invalid URL */
+
+.error-message-url {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 32px;
+  height: 100vh;
+}
+
+.error-message-url a {
+  padding: 16px;
+  background: rgb(86, 187, 255);
+  color: white;
+  text-decoration: none;
+  width: 10%;
+  border-radius: 16px;
+  transition: .2s ease-in-out;
+}
+
+.error-message-url a:hover {
+  background: rgb(0, 153, 255);
+  transform: scale(1.1);
+}

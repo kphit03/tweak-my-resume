@@ -1,14 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Nav = () => {
   return (
     <div className="navbar">
 
         <div className="nav-left">
-            <a href="./Home.tsx">Tweak My Resume</a>
+            <Link to="./">Tweak My Resume</Link>
         </div>
         <div className="nav-right">
-            <a href="./Login.tsx">Login</a>
+            <Link to="./login">Login</Link>
         </div>
         
     </div>
