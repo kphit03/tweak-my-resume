@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Quicksand", Arial, Helvetica, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -22,34 +22,63 @@ body {
   flex-direction: row;
   margin: 2rem auto;
   padding: 1rem;
-  width: 70%;
+  width: 40%;
   flex-wrap: wrap;
   border-radius: 16px;
   transition: .3s ease-in-out;
   font-weight: 600;
 }
 
+.navbar img {
+  max-width: 40px;
+  max-height: 40px;
+}
 .navbar a {
   background: transparent;
   text-decoration: none;
-  color: #002e58;
+  color: rgb(0, 97, 133);
 }
 
 .nav-left {
   background: transparent;
-  margin-left: 4%;
+  margin-left: 2%;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-height: 40px;
+}
+
+.nav-left a {
+  max-height: 40px;
+}
+
+/*align links on nav-right*/
+.nav-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 }
 
 .nav-right a {
-  color: #fff;
-}
-.nav-right {
-  background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%);
+  color: rgb(0, 79, 107);
+  transition: .4s ease-in-out;
 }
 
-.nav-right {
+.nav-right a:hover {
+  color: rgb(0, 187, 255);
+}
+
+.nav-right #login-btn {
+  background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%);
+  margin-right: 2%;
+}
+
+.nav-right #login-btn {
   padding: 5px 15px;
   text-align: center;
   text-transform: uppercase;
@@ -58,11 +87,10 @@ body {
   color: white;            
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
-  display: block;
   text-decoration: none;
 }
 
-.nav-right:hover {
+.nav-right #login-btn:hover {
   background-position: right center; 
   color: #fff;
   text-decoration: none;
