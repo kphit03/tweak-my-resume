@@ -6,11 +6,80 @@
 }
 
 body {
-  background: linear-gradient(to right, #a1d3ff, #ddeeff, #ffffff);
+  /* background: linear-gradient(to right, #a1d3ff, #ddeeff, #ffffff); */
+  background-color: rgb(255, 255, 255);
+  
+}
+div p {
+  padding: 10rem;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24rem;
+  min-height: 80px;
+  margin-top: 16px;
 }
 
+.navbar img {
+  height: 56px;
+}
 
-/* Error Message for Invalid URL */
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-mid {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;                 
+  justify-content: center;  
+  background: rgba(255, 255, 255, .4); 
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  will-change: opacity;
+  border-radius: 12px;
+  min-height: 84px;
+}
+
+.login-wrapper {
+  min-height: 100vh;             
+  display: flex;
+  align-items: center;           
+  justify-content: center;       
+  flex-direction: column;
+  text-align: center;
+}
+
+.login-wrapper img {
+  width: 400px;
+}
+
+#google-icon {
+  width: 32px;
+}
+.login-card {
+  width: 400px;
+  padding: 2rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+}
+
+.login-card button {
+  background-color: red;
+}
 
 .error-message-url {
   display: flex;

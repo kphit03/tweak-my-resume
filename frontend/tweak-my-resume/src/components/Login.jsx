@@ -4,7 +4,17 @@ const Login = () => {
   return (
     <>
     <Nav></Nav>
-    <div>Login</div>
+    <div className="login-wrapper">
+      <img src="../campaign-tweaking.png" alt="" />
+      <div className='login-card'>
+        <form type="submit">
+        <h2>Sign in or sign up</h2>
+        <button><img src="../google-icon.png" alt="" id='google-icon'/>Continue with Google</button>
+        </form>
+
+      </div>
+    </div>
+    
     </>
   )
 }
