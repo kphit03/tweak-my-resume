@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Login from "./components/Login.jsx"
 import InvalidUrl from './components/InvalidUrl.jsx';
 import Testing from './components/Testing.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL
 const router = createBrowserRouter([
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
  {
   path: "/testing",
   element: <Testing apiUrl={apiUrl}/>
- }
+ },
+ {
+  path: "/dashboard",
+  element: <Dashboard apiUrl={apiUrl}/>
+ },
 ]);
 
 createRoot(document.getElementById('root')).render(
