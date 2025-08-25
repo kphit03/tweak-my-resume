@@ -30,7 +30,9 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
                 .cors(Customizer.withDefaults())
-                .oauth2Login(Customizer.withDefaults());
+                .oauth2Login(o -> o
+                        .defaultSuccessUrl("http://localhost:5173/dashboard", true)
+                        .failureUrl("http://localhost:5173/login?error=true"));
         return http.build();
     }
 

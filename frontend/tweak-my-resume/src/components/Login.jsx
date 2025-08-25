@@ -30,7 +30,7 @@ const Login = ({ apiUrl }) => {
 
         <form type="submit">
         <h2>Sign in or sign up</h2>
-        <button><img src="../google-icon.png" alt="" id='google-icon'/>Continue with Google</button>
+        <a href={`${apiUrl}/oauth2/authorization/google`}><img src="../google-icon.png" alt="" id='google-icon'/>Continue with Google</a>
         </form>
         <h1>Env = :{apiUrl}</h1>
 
