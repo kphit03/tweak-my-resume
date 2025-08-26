@@ -33,7 +33,15 @@ public class AuthController {
     }
 
     @GetMapping("/user")
+    /**Inject the currently logged-in user into this method
+     * OAuth2User is a spring security object that represents an authenticated user from OAuth2
+     *  - it has methods like principal.getAttributes(), pricipal.getAuthorities(), can find more info online
+     */
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("name"));
+        //creates tiny json object "name": "Kevin Phitsanu"
+        System.out.println("Get Authorities:" + principal.getAuthorities());
+        System.out.println("Get Attributes:" + principal.getAttributes());
+//        return Collections.singletonMap("attributes", principal.getAttributes());
+        return Collections.singletonMap("Attributes", principal.getAttributes());
     }
 }

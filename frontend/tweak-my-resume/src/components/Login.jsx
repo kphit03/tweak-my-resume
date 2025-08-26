@@ -5,6 +5,7 @@ import Nav from "./Nav.jsx"
 const Login = ({ apiUrl }) => {
   console.log("Test mounted")
   const [output, setOutput] = useState("");
+  
   async function getUser() {
     try {
         const res = await axios.get(`${apiUrl}/api/auth/user`, {
