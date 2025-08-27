@@ -1,8 +1,10 @@
 package com.tweak.my.resume.tweak_my_resume.controllers;
 
+import com.tweak.my.resume.tweak_my_resume.services.AuthSyncService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,11 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    private final AuthSyncService authSyncService;
+    public AuthController(AuthSyncService authSyncService) {
+        this.authSyncService = authSyncService;
+    }
+
     @GetMapping("/public")
     public String notProtected() {
         return "Not protected";
@@ -32,16 +39,27 @@ public class AuthController {
         return "Hello protected";
     }
 
-    @GetMapping("/user")
-    /**Inject the currently logged-in user into this method
-     * OAuth2User is a spring security object that represents an authenticated user from OAuth2
-     *  - it has methods like principal.getAttributes(), pricipal.getAuthorities(), can find more info online
-     */
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        //creates tiny json object "name": "Kevin Phitsanu"
-        System.out.println("Get Authorities:" + principal.getAuthorities());
-        System.out.println("Get Attributes:" + principal.getAttributes());
-//        return Collections.singletonMap("attributes", principal.getAttributes());
-        return Collections.singletonMap("Attributes", principal.getAttributes());
+    @GetMapping("/me")
+    public Map<String, Object> me(@AuthenticationPrincipal OAuth2User principal, OAuth2AuthenticationToken authToken) {
+        //Which provider used? (etc google)
+        String provider = authToken.getAuthorizedClientRegistrationId(); //sets provider to "google"
+
+//        System.out.println("PRINCIPAL: " + principal);
+        var user = authSyncService.upsertFromOAuth(provider, principal.getAttributes());
+//        System.out.println(
+//                "User => id=" + user.getId()
+//                        + ", firstName=" + user.getFirstName()
+//                        + ", lastName=" + user.getLastName()
+//                        + ", email=" + user.getEmail()
+//                        + ", provider=" + user.getProvider()
+//                        + ", providerId=" + user.getProviderId()
+//        );
+        return Map.of(
+                "id", user.getId(),
+                "firstName", user.getFirstName(),
+                "lastName", user.getLastName(),
+                "email", user.getEmail()
+        );
     }
+
 }

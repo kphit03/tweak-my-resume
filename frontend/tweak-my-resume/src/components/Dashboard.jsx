@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Dashboard = ({ apiUrl }) => {
-  console.log("dashboard initialized")
-  const [output, setOutput] = useState("");
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
-useEffect(() => {
-  checkUser();
-  console.log("Authenticated!");
-}), [];
-  async function checkUser() {
-    try {
-      const res = await axios.get(`${apiUrl}/api/auth/user`, {
-        withCredentials: true
+  useEffect(() => {
+    async function getUserInfo() {
+      try {
+        const res = await axios.get(`${apiUrl}/api/auth/me`, { //set GET request to this endpoint
+          withCredentials: true,
+        });
+        setUser(res.data); // <-- keep it as an object
+        // console.log(res.data) //printing user infor if debugging
+      } catch (err) {
+        setError(
+          err.response
+            ? `Backend error ${err.response.status}: ${JSON.stringify(err.response.data)}`
+            : `Network error: ${err.message}`
+        );
       }
-    );
-    setOutput(JSON.stringify(res.data, null, 2));
-  } catch (err) {
-    if (err.response) {
-      setOutput("Backend:"+ `Error ${err.response.status}: ${JSON.stringify(err.response.data)}`)
-    } else {
-            const message = "Network error"
-            setOutput(`Error: ${err.message}`); //network error, no response
     }
-  }
-}
+    getUserInfo();
+  }, [apiUrl]); // run once (or when apiUrl changes)
+
+  if (error) return <h1>{error}</h1>;
+  if (!user) return <h1>Loading...</h1>;
 
   return (
     <>
-    <h1>Data: {output ? output : "Not clicked"}</h1>
+      <h1>
+        Hello, {user.firstName} {user.lastName}
+      </h1>
     </>
-  )
+  );
+};
 
-}
-
-export default Dashboard
+export default Dashboard;
