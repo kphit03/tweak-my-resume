@@ -3,7 +3,7 @@ package com.tweak.my.resume.tweak_my_resume.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="application_user", uniqueConstraints = @UniqueConstraint(columnNames = {"provider","providerId"}))
+@Table(name="application_user", uniqueConstraints = @UniqueConstraint(columnNames = {"provider","provider_id"}))
 public class ApplicationUser {
 
     @Id
@@ -21,7 +21,7 @@ public class ApplicationUser {
 
     @Column(nullable=false)
     private String provider;
-    @Column(nullable=false)
+    @Column(nullable=false, name="provider_id")
     private String providerId;
 
     public ApplicationUser() {}

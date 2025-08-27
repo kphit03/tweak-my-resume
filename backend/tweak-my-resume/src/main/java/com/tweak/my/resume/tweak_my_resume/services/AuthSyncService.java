@@ -53,10 +53,13 @@ public class AuthSyncService {
             }
         }
         // step 1: try to find existing user by provider and providerId
+        /**
+         * method below performs this query and gets assigned to "existingUser" (SELECT * FROM application_user WHERE provider = <provider> AND provider_id = <providerId>)
+         */
         Optional<ApplicationUser> existingUser = applicationUserRepository.findByProviderAndProviderId(provider, providerId);
         if (existingUser.isPresent()) {
-            ApplicationUser user = existingUser.get();
-            //keep basic profile fresh on login
+            ApplicationUser user = existingUser.get(); //retrieve actual entity instance
+            //keep basic profile fresh on login (hibernate dirty checking automatically handles/updates as needed without requiring explicit queries)
             user.setFirstName(givenName);
             user.setLastName(familyName);
             if (email != null) {
@@ -68,6 +71,12 @@ public class AuthSyncService {
         ApplicationUser newUser = new ApplicationUser(
                 givenName, familyName, email, provider, providerId
         );
-        return applicationUserRepository.save(newUser);
+        return applicationUserRepository.save(newUser); //return new user if prev user not present
+
+        /**
+         * what above .save will do in DB:
+         * insert into application_user (first_name, last_name, email, provider, provider_id)
+         * values (?, ?, ?, ?, ?)
+         */
     }
 }

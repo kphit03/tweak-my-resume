@@ -8,7 +8,7 @@ const Dashboard = ({ apiUrl }) => {
 useEffect(() => {
   checkUser();
   console.log("Authenticated!");
-})
+}), [];
   async function checkUser() {
     try {
       const res = await axios.get(`${apiUrl}/api/auth/user`, {
