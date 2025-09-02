@@ -34,7 +34,7 @@ const Dashboard = ({ apiUrl }) => {
         Hello, {user.firstName} {user.lastName}
       </h1>
       <div>
-        <PdfExtractor />
+        <PdfExtractor apiUrl={apiUrl}/>
       </div>
     </>
   );

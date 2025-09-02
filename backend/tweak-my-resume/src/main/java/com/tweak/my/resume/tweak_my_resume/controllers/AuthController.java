@@ -19,7 +19,6 @@ import java.util.Map;
 /**
  * This class tells the frontend whether user is logged in
  */
-@CrossOrigin(origins= "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -29,16 +28,7 @@ public class AuthController {
         this.authSyncService = authSyncService;
     }
 
-    @GetMapping("/public")
-    public String notProtected() {
-        return "Not protected";
-    }
-
-    @GetMapping("/protected")
-    public String protectedAuth() {
-        return "Hello protected";
-    }
-
+    //return user info and add to DB
     @GetMapping("/me")
     public Map<String, Object> me(@AuthenticationPrincipal OAuth2User principal, OAuth2AuthenticationToken authToken) {
         //Which provider used? (etc google)

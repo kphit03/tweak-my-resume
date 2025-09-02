@@ -30,13 +30,14 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
                 .cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/analyze/**"))
                 .oauth2Login(o -> o
                         .defaultSuccessUrl("http://localhost:5173/dashboard", true)
                         .failureUrl("http://localhost:5173/login?error=true"));
         return http.build();
     }
 
-    //cors config beat
+    //cors config
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();

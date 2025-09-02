@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { extractPdfText } from "../pdfText"; //helper function
 
-const PdfExtractor = () => {
+const PdfExtractor = ({apiUrl}) => {
   //store text and error for display later in function
   const [text, setText] = useState("");
   const [error, setError] = useState("");
+  const [serverMsg, setServerMsg] = useState("");
   
   //handle uploading pdfs
   async function handleChange(e) {
     //clear any prev state so UI resets each time a user picks a file
     setError("");
     setText("");
+    setServerMsg("");
 
     //e.target is the file input in the returned jsx below
     const file = e.target.files?.[0]; //accept 1 file [0]
@@ -30,10 +33,18 @@ const PdfExtractor = () => {
       //call helper function (which processes pdf and returns string), then set text state var to what we received from function
       const txt = await extractPdfText(file); 
       setText(txt);
+      //after extracting resume data, send to backend
+      const res = await axios.post(
+        `${apiUrl}/api/analyze/resume`,
+        { resumeText: txt },
+        { withCredentials: true, header: { "Content-Type": "application/json" } }
+      );
+      setServerMsg(res.data); //controller will return simple string here
+
     } catch (err) {
       console.error(err);
       setError(
-        "Could not read text. If this is a scanned PDF, you'll need OCR."
+        "Could send text to server. Please submit a PDF (Not scanned)."
       );
     } finally {
       // reset input field 

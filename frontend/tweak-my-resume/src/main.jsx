@@ -25,7 +25,7 @@ const router = createBrowserRouter([
  },
  {
   path: "/extract",
-  element: <PdfExtractor />
+  element: <PdfExtractor apiUrl={apiUrl} />
  }
 ]);
 
