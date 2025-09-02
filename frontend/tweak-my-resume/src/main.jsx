@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Login from "./components/Login.jsx"
 import InvalidUrl from './components/InvalidUrl.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import PdfExtractor from './components/PdfExtractor.jsx';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   path: "/dashboard",
   element: <Dashboard apiUrl={apiUrl}/>
  },
+ {
+  path: "/extract",
+  element: <PdfExtractor />
+ }
 ]);
 
 createRoot(document.getElementById('root')).render(
