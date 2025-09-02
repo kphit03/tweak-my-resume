@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PdfExtractor from "./PdfExtractor";
 
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
@@ -32,6 +33,9 @@ const Dashboard = ({ apiUrl }) => {
       <h1>
         Hello, {user.firstName} {user.lastName}
       </h1>
+      <div>
+        <PdfExtractor />
+      </div>
     </>
   );
 };
