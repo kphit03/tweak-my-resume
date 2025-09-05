@@ -1,5 +1,5 @@
-/* Palette */
-:root {
+/* Palette for navbar */
+.navigation {
   --bg: #402E7A;
   --primary: #4C3BCF;
   --accent: #4B70F5;
@@ -26,9 +26,9 @@
   min-height: 64px;
 }
 
-
+/* logo + title on nav */
 .brand {
-  justify-self: start;     /* hard-left */
+  justify-self: start;     
   display: inline-flex;
   align-items: center;
   font-weight: 300;
@@ -44,12 +44,12 @@
   display: block;
   object-fit: contain;
   filter: brightness(0) invert(1); /* dark → white */
-  opacity: 0.95;                   /* optional, to soften a touch */
+  opacity: 0.95;                   
   
 }
 
 .links {
-  justify-self: center;    /* true center */
+  justify-self: center;    
   display: inline-flex;
   align-items: center;
   gap: 24px;
@@ -71,9 +71,9 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -4px;                    /* distance below text */
+  bottom: -4px;                    
   height: 2px;
-  background: var(--accent);            /* accent on hover */
+  background: var(--accent);            
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 200ms ease;
@@ -81,7 +81,7 @@
 
 /* hover effect */
 .link:hover {
-  color: var(--accent);                  /* text accent on hover */
+  color: var(--accent);                 
   opacity: 1;
 }
 
@@ -92,14 +92,14 @@
 /* make it work for keyboard users too */
 .link:focus-visible {
   outline: none;
-  color: #ffc400;
+  color: var(--accent);
 }
 .link:focus-visible::after {
   transform: scaleX(1);
 }
 
 .right {
-  justify-self: end;       /* hard-right */
+  justify-self: end;       
   display: inline-flex;
   align-items: center;
 }

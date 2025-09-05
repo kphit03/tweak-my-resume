@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Nav from "./components/Nav/Nav.jsx"
-import Home from "./components/Home.jsx"
+import Home from "./components/Home/Home.jsx"
 import './App.css'
 
 function App({apiUrl}) {
@@ -10,7 +10,6 @@ function App({apiUrl}) {
     <>
     <Nav />
     <Home />
-    <div>{apiUrl}</div>
     </>
   )
 }

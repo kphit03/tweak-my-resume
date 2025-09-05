@@ -4,7 +4,7 @@ import styles from "./Nav.module.css";
 
 const Nav = () => {
   return (
-    <nav className={styles.nav} aria-label="Primary">
+    <nav className={`${styles.nav} ${styles.navigation}`} aria-label="Primary">
       <div className={styles.inner}>
         {/* Left: Brand */}
         <Link to="/" className={styles.brand}>
