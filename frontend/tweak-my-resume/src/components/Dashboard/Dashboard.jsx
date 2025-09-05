@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import PdfExtractor from "../PdfExtractor.jsx";
+import PdfExtractor from "../PdfExtractor/PdfExtractor.jsx";
 import Nav from "../Nav/Nav.jsx"
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
@@ -22,21 +22,17 @@ const Dashboard = ({ apiUrl }) => {
         });
         if (!cancelled) setUser(res.data); // <-- keep it as an object
         // console.log(res.data) //printing user infor if debugging
-      } catch (err) {
-        const status = err?.response?.status;
-        if (status == 401) {
-          navigate("/login", {
-            replace: true
-          });
-          return;
+      } catch (error) { 
+        if (axios.isAxiosError(error)) {
+          const status = error.response?.status;
+          const msg =
+            error.response?.data?.message || error.message || "Request failed";
+          if (!cancelled) setErrorMsg(msg);
+          if (status === 401) navigate("/login"); // redirect if not logged in
+        } else {
+          if (!cancelled) setErrorMsg(String(error));
         }
-      }
-      if (!cancelled) {
-        setError(
-          status
-          ? `Backend error ${status}: ${JSON.stringify(err.response.data)}`
-          : `Network error: ${err.message}`
-        );
+        console.error("getUserInfo failed:", error);
       }
     }
     getUserInfo();
@@ -69,7 +65,7 @@ const Dashboard = ({ apiUrl }) => {
       {analysis && (
         <>
           <h3>Analysis</h3>
-          {analysis.summary && <p><strong>Summary:</strong> {analysis.summary}</p>}
+          {analysis.fileUploaded && <p><strong>Summary:</strong> {analysis.fileUploaded}</p>}
           
         </>
       )}

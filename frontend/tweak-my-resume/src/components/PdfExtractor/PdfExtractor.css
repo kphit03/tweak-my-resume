@@ -1,0 +1,211 @@
+/* Palette scoped to this component */
+.pdfx-container {
+  --bg-deep: #402E7A;
+  --primary: #4C3BCF;
+  --accent: #4B70F5;
+  --highlight: #3DC2EC;
+
+  --surface: #ffffff;
+  --text: #0f1222;
+  --muted: #6b6f80;
+
+  --radius: 12px;
+  --shadow: 0 10px 28px rgba(0,0,0,.12);
+  --shadow-soft: 0 6px 18px rgba(0,0,0,.08);
+
+  max-width: 860px;
+  margin: 24px auto;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid #eef0f6;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  color: var(--text);
+}
+
+/* Titles */
+.pdfx-title {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 800;
+  margin: 2px 0 10px;
+}
+
+.pdfx-subtitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 22px 0 10px;
+  color: var(--text);
+}
+
+/* Helper & status */
+.pdfx-helper {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pdfx-status {
+  min-height: 1.25rem; /* keeps layout stable when messages appear */
+  margin-bottom: 6px;
+}
+
+.pdfx-error {
+  color: #b00020; /* accessible red */
+  background: #ffeef0;
+  border: 1px solid #ffd6db;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+/* Input row */
+.pdfx-input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Hide the native file input (but keep it in the DOM for a11y) */
+.pdfx-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0.001;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Custom button via <label> */
+.pdfx-file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .15s ease, filter .15s ease;
+  user-select: none;
+}
+
+.pdfx-file-label:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+  filter: saturate(1.05);
+}
+
+/* Keyboard focus on the label (since input is visually hidden) */
+.pdfx-file-label:focus,
+.pdfx-file-label:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Preview card */
+.pdfx-preview {
+  margin-top: 18px;
+  background: #f7f8fc;
+  border: 1px solid #e9ecf5;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.pdfx-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e9ecf5;
+}
+
+.pdfx-preview-title {
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.pdfx-preview-count {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.pdfx-preview-body {
+  margin: 0;
+  padding: 12px;
+  max-height: 340px;
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #1e2134;
+}
+
+/*  Job Description Textarea */
+.pdfx-textarea-wrap {
+  position: relative;
+  margin-top: 12px;
+}
+
+.pdfx-textarea {
+  width: 100%;
+  min-height: 160px;          /* comfortable default */
+  resize: vertical;           /* allow user to drag taller */
+  padding: 12px 14px;
+  border: 1px solid #e9ecf5;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  line-height: 1.5;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02) inset;
+}
+
+.pdfx-textarea::placeholder {
+  color: var(--muted);
+  opacity: .85;
+}
+
+.pdfx-textarea:focus {
+  outline: 2px solid var(--highlight);  
+  outline-offset: 2px;
+  border-color: transparent;
+}
+
+/* character counter  */
+.pdfx-counter {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/*  */
+.pdfx-textarea-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .pdfx-container {
+    margin: 16px auto;
+    padding: 16px;
+  }
+  .pdfx-file-label {
+    width: 100%;
+    justify-content: center;
+  }
+}

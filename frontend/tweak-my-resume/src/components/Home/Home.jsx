@@ -51,7 +51,7 @@ const Home = () => {
         <div className={styles.container}>
           <div className={styles.why}>
             <h2 className={styles.h2}>Why The Resume Tailor?</h2>
-            <img src="/the-resume-tailor-transparent.png" alt="" />
+            <img src="/the-resume-tailor-transparent.png" alt="The Resume Tailor logo" />
           </div>
           <div className={styles.grid}>
             <article className={styles.featureCard}>

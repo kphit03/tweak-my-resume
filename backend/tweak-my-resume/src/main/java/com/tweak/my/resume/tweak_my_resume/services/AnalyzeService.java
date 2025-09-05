@@ -23,13 +23,13 @@ public class AnalyzeService {
                 
                 Task:
                 - Based on the resume and job description, return a bulleted list of recommendations
-                  to gailor the resume to the job. Include missking skills/keywords and concrete bullet points/rewrites.
+                  to gailor the resume to the job. Include missing skills/keywords and concrete bullet points/rewrites.
                 - End with a short summary paragraph.
-                - Return ONLY a JSON object with keys: summary, strengths, gaps, tailoredBullets, atsKeywords, and key recommendations.
+                - Return ONLY a JSON object with keys: fileUploaded(this is the name of the file), summary, strengths, gaps, tailoredBullets, atsKeywords, and key recommendations.
                 - Your response should be in JSON format.
                 - The data structure for the JSON should match this Java class: java.util.HashMap
                 - Do not include any explanations, only provide a RFC8259 compliant JSON response following this format without deviation.
-                
+                - It is okay if there is no job description provided, but, if it does not seem like an actual resume was uploaded based on the text you receive, please stop processing and note that in the summary key.
                 Job description:
                 %s
                 
