@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Login from "./components/Login.jsx"
 import InvalidUrl from './components/InvalidUrl.jsx';
-import Dashboard from './components/Dashboard.jsx';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
 import PdfExtractor from './components/PdfExtractor.jsx';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL

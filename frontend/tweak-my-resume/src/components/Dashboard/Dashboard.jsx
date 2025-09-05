@@ -1,37 +1,55 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import PdfExtractor from "./PdfExtractor";
-
+import PdfExtractor from "../PdfExtractor.jsx";
+import Nav from "../Nav/Nav.jsx"
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [resumeText, setResumeText] = useState(""); //will be text from child component (PdfExtractor.jsx)
   const [analysis, setAnalysis] = useState(null); //json returned from backend
   const [childError, setChildError] = useState(""); //if error from child
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    let cancelled = false;
+
     async function getUserInfo() {
       try {
         const res = await axios.get(`${apiUrl}/api/auth/me`, { //set GET request to this endpoint
           withCredentials: true,
         });
-        setUser(res.data); // <-- keep it as an object
+        if (!cancelled) setUser(res.data); // <-- keep it as an object
         // console.log(res.data) //printing user infor if debugging
       } catch (err) {
+        const status = err?.response?.status;
+        if (status == 401) {
+          navigate("/login", {
+            replace: true
+          });
+          return;
+        }
+      }
+      if (!cancelled) {
         setError(
-          err.response
-            ? `Backend error ${err.response.status}: ${JSON.stringify(err.response.data)}`
-            : `Network error: ${err.message}`
+          status
+          ? `Backend error ${status}: ${JSON.stringify(err.response.data)}`
+          : `Network error: ${err.message}`
         );
       }
     }
     getUserInfo();
-  }, [apiUrl]); // run once (or when apiUrl changes)
+    return () => {cancelled = true};
+  }, [apiUrl, navigate, location.pathname]); // run once (or when apiUrl changes)
 
+  if (!user) return <><Nav /><div><h1>Loading...</h1></div></>;
   if (error) return <h1>{error}</h1>;
-  if (!user) return <h1>Loading...</h1>;
 
+  if (user) {
   return (
+    <>
+    <Nav />
     <div className="dashboard-container">
       <h1>
         Hello, {user.firstName}
@@ -57,7 +75,9 @@ const Dashboard = ({ apiUrl }) => {
       )}
 
     </div>
+    </>
   );
+}
 };
 
 export default Dashboard;

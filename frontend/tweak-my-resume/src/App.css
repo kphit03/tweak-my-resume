@@ -9,7 +9,9 @@
 html, body, #root {
   height: 100%;
 }
-
+html {
+  overflow-y: scroll; /* this will keep page width consistent for pages that have scroll bars and pages that don't*/
+}
 * {
   margin: 0;
 }

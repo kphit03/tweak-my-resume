@@ -49,7 +49,10 @@ const Home = () => {
       {/* FEATURES */}
       <section className={styles.features} id="features">
         <div className={styles.container}>
-          <h2 className={styles.h2}>Why The Resume Tailor?</h2>
+          <div className={styles.why}>
+            <h2 className={styles.h2}>Why The Resume Tailor?</h2>
+            <img src="/the-resume-tailor-transparent.png" alt="" />
+          </div>
           <div className={styles.grid}>
             <article className={styles.featureCard}>
               <div className={styles.featureIcon}>🎯</div>
