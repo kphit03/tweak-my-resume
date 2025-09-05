@@ -72,7 +72,7 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
 
   return (
   <div className="pdfx-container">
-    <h2 className="pdfx-title">Upload your resume (PDF)</h2>
+    <h2 className="pdfx-title required-field">Upload your resume (PDF)</h2>
     <form onSubmit={handleSubmit} noValidate>
     {/* Status / errors for screen readers */}
     {error ? <div className="pdfx-status" aria-live="polite" aria-atomic="true">
@@ -103,6 +103,7 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
     {fileName && <p className="pdfx-helper">File selected: {fileName}</p>}
 
     <h2 className="pdfx-subtitle">Paste the job description</h2>
+    <p className="pdfx-helper">A job description is not required for analysis, but it is highly recommended.</p>
     <div className="pdfx-textarea-wrap">
       <label htmlFor="jd" className="visually-hidden">Job description</label>
       <textarea

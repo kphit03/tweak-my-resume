@@ -197,7 +197,11 @@
   display: flex;
   gap: 8px;
 }
-
+/* required field styling*/
+.required-field::after {
+    content: "*";
+    color: red;
+}
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .pdfx-container {
