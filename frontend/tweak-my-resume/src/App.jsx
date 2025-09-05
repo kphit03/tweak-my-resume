@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Nav from "./components/Nav.jsx"
+import Nav from "./components/Nav/Nav.jsx"
 import Home from "./components/Home.jsx"
 import './App.css'
 

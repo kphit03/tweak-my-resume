@@ -1,0 +1,133 @@
+/* Palette */
+:root {
+  --bg: #402E7A;
+  --primary: #4C3BCF;
+  --accent: #4B70F5;
+  --highlight: #3DC2EC;
+  --text: #ffffff;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.inner {
+  width: 100%;
+  padding: 12px 32px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 16px;
+  min-height: 64px;
+}
+
+
+.brand {
+  justify-self: start;     /* hard-left */
+  display: inline-flex;
+  align-items: center;
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo {
+  height: 64px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* dark → white */
+  opacity: 0.95;                   /* optional, to soften a touch */
+  
+}
+
+.links {
+  justify-self: center;    /* true center */
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.link {
+  position: relative;              /* anchor for the pseudo-element */
+  display: inline-block;  
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.95;
+  transition: color 160ms ease, opacity 160ms ease, transform 120ms ease;
+}
+/* the animated underline */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;                    /* distance below text */
+  height: 2px;
+  background: var(--accent);            /* accent on hover */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+/* hover effect */
+.link:hover {
+  color: var(--accent);                  /* text accent on hover */
+  opacity: 1;
+}
+
+.link:hover::after {
+  transform: scaleX(1);            /* slide in underline */
+}
+
+/* make it work for keyboard users too */
+.link:focus-visible {
+  outline: none;
+  color: #ffc400;
+}
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.right {
+  justify-self: end;       /* hard-right */
+  display: inline-flex;
+  align-items: center;
+}
+
+.loginBtn {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 8px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.loginBtn:hover {
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(75, 112, 245, 0.35);
+  
+}
+
+/* Focus */
+.link:focus-visible,
+.loginBtn:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+

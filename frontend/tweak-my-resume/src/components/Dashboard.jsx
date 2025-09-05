@@ -5,6 +5,9 @@ import PdfExtractor from "./PdfExtractor";
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [resumeText, setResumeText] = useState(""); //will be text from child component (PdfExtractor.jsx)
+  const [analysis, setAnalysis] = useState(null); //json returned from backend
+  const [childError, setChildError] = useState(""); //if error from child
 
   useEffect(() => {
     async function getUserInfo() {
@@ -29,14 +32,31 @@ const Dashboard = ({ apiUrl }) => {
   if (!user) return <h1>Loading...</h1>;
 
   return (
-    <>
+    <div className="dashboard-container">
       <h1>
-        Hello, {user.firstName} {user.lastName}
+        Hello, {user.firstName}
       </h1>
       <div>
-        <PdfExtractor apiUrl={apiUrl}/>
+        <PdfExtractor 
+          apiUrl={apiUrl}
+          onExtracted={(txt) => setResumeText(txt)}
+          onAnalyzed={(data) => setAnalysis(data)}
+          onError={(msg) => setChildError(msg)}
+          showPreview={false} //debug purposes
+          previewChars={800}/>
       </div>
-    </>
+      
+      {childError && <p style={{color:"crimson"}}>{childError}</p>}
+      {resumeText && <p>Extracted {resumeText.length} chars</p>}
+      {analysis && (
+        <>
+          <h3>Analysis</h3>
+          {analysis.summary && <p><strong>Summary:</strong> {analysis.summary}</p>}
+          
+        </>
+      )}
+
+    </div>
   );
 };
 

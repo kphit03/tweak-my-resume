@@ -1,109 +1,67 @@
+/* Base reset & defaults  */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 body {
-  /* background: linear-gradient(to right, #a1d3ff, #ddeeff, #ffffff); */
-  background-color: rgb(255, 255, 255);
-  
-}
-div p {
-  padding: 10rem;
-}
-.navbar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 24rem;
-  min-height: 80px;
-  margin-top: 16px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  color: #111;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.navbar img {
-  height: 56px;
+/* Make media elements behave */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-.nav-left,
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Typography defaults */
+input, button, textarea, select {
+  font: inherit;
 }
 
-.nav-mid {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  flex: 1;                 
-  justify-content: center;  
-  background: rgba(255, 255, 255, .4); 
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  backdrop-filter: blur(18px) saturate(1.5);
-  will-change: opacity;
-  border-radius: 12px;
-  min-height: 84px;
-}
-
-.login-wrapper {
-  min-height: 100vh;             
-  display: flex;
-  align-items: center;           
-  justify-content: center;       
-  flex-direction: column;
-  text-align: center;
-}
-button {
-  background-color: green;
-}
-.login-wrapper img {
-  width: 400px;
-}
-
-#google-icon {
-  width: 32px;
-}
-.login-card {
-  width: 400px;
-  padding: 2rem;
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 4px 20px rgba(0,0,0,.1);
-}
-
-.login-card button {
-  background-color: red;
-}
-
-.error-message-url {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  gap: 32px;
-  height: 100vh;
-}
-
-.error-message-url a {
-  padding: 16px;
-  background: rgb(86, 187, 255);
-  color: white;
+/* Anchor default (unstyled link; style per-component) */
+a {
+  color: inherit;
   text-decoration: none;
-  width: 10%;
-  border-radius: 16px;
-  transition: .2s ease-in-out;
 }
 
-.error-message-url a:hover {
-  background: rgb(0, 153, 255);
-  transform: scale(1.1);
+/* Remove list bullets by default (opt back in per-component) */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+/* Reduce layout shift for pre/code blocks */
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Buttons: very light neutral baseline (component styles should override) */
+button {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+/* Forms: remove default outlines only on mouse, keep for keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
 }

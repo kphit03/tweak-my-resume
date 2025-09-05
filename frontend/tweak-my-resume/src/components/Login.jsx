@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios";
-import Nav from "./Nav.jsx"
+import Nav from "./Nav/Nav.jsx"
 
 const Login = ({ apiUrl }) => {
   console.log("Test mounted")
