@@ -99,8 +99,8 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
       </label>
     </div>
 
-    <p className="pdfx-helper">PDF only. Max size recommended: 5&nbsp;MB.</p>
-    {fileName && <p className="pdfx-helper">File selected: {fileName}</p>}
+    <p className="pdfx-helper">Please select a PDF file only. Max size recommended: 5&nbsp;MB.</p>
+    {fileName && <p className="pdfx-helper"><strong>File selected:</strong> {fileName}</p>}
 
     <h2 className="pdfx-subtitle">Paste the job description</h2>
     <p className="pdfx-helper">A job description is not required for analysis, but it is highly recommended.</p>

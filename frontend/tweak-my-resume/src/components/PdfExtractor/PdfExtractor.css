@@ -33,7 +33,7 @@
 .pdfx-subtitle {
   font-size: 1rem;
   font-weight: 700;
-  margin: 22px 0 10px;
+  margin: 22px 0 8px;
   color: var(--text);
 }
 
@@ -64,7 +64,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 12px;
 }
 
 /* Hide the native file input (but keep it in the DOM for a11y) */
@@ -94,14 +93,19 @@
   text-decoration: none;
   box-shadow: var(--shadow-soft);
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .15s ease, filter .15s ease;
+  transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
   user-select: none;
 }
 
 .pdfx-file-label:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02);
+  filter: brightness(1.2) saturate(1.05);
   box-shadow: var(--shadow);
-  filter: saturate(1.05);
+}
+
+/* active */
+.pdfx-file-label:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 /* Keyboard focus on the label (since input is visually hidden) */
