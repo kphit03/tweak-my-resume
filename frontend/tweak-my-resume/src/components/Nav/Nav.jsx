@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Nav.module.css";
-
+import { HashLink } from "react-router-hash-link";
 const Nav = () => {
   return (
     <nav className={`${styles.nav} ${styles.navigation}`} aria-label="Primary">
@@ -19,7 +19,7 @@ const Nav = () => {
         {/* Middle: Links */}
         <div className={styles.links}>
           <Link to="/" className={styles.link}>Home</Link>
-          <Link to="/about" className={styles.link}>About</Link>
+          <HashLink smooth to="/#about" className={styles.link}>About</HashLink>
           <Link to="/dashboard" className={styles.link}>Dashboard</Link>
           <Link to="/faq" className={styles.link}>FAQ</Link>
           <Link to="/support" className={styles.link}>Contact</Link>

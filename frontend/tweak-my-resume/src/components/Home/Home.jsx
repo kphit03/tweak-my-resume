@@ -26,7 +26,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className={styles.heroCard}>
+          <div id="about" className={styles.heroCard}>
             <div className={styles.heroCardRow}>
               <div className={styles.metric}>
                 <span className={styles.metricNum}>10x</span>

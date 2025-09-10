@@ -255,3 +255,6 @@
   .grid { grid-template-columns: 1fr; }
   .containerStrip { grid-template-columns: 1fr; row-gap: 10px; text-align: center; }
 }
+
+/* smooth scroll on nav link for about */
+#about { scroll-margin-top: 80px; }
