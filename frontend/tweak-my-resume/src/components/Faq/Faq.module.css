@@ -1,0 +1,146 @@
+.faq-page {
+  --surface: #ffffff;
+  --border: #e7eaf3;
+  --shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+
+  --text: #1e222b;
+  --muted: #5b6270;
+  --accent: #5f85db; 
+  --radius: 14px;
+
+  color: var(--text);
+  background: transparent; 
+  min-height: 100dvh;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* layout */
+.faq-section {
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.faq-container {
+  width: min(960px, 92%);
+  margin: 0 auto;
+}
+
+/* headings & text */
+.faq-title {
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.faq-intro {
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+/* table of contents */
+.faq-toc {
+  margin-bottom: 1.25rem;
+}
+
+.faq-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.faq-toc a {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow);
+  transition: transform 130ms ease, border-color 130ms ease, box-shadow 130ms ease;
+}
+
+.faq-toc a:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--accent), white 20%);
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.09);
+}
+
+.faq-toc a:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--accent), white 20%);
+  outline-offset: 2px;
+}
+
+/* list of Q&A cards */
+.faq-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.faq-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 0.75rem + 0.8vw, 1.25rem);
+  box-shadow: var(--shadow);
+}
+
+/* question */
+.faq-question {
+  font-size: 1.125rem;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+  scroll-margin-top: 84px; /* adjust for sticky Nav height */
+}
+
+.faq-question::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin-top: 8px;
+  background: color-mix(in oklab, var(--accent), white 10%);
+  border-radius: 2px;
+}
+
+/* answer */
+.faq-answer {
+  color: var(--text);
+  line-height: 1.65;
+  margin: 0 0 0.75rem;
+}
+
+/* back to top */
+.faq-back-to-top {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.faq-back-to-top:hover {
+  border-color: currentColor;
+}
+
+/* behavior */
+:global(html) {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html) { scroll-behavior: auto; }
+  .faq-toc a,
+  .faq-back-to-top { transition: none; }
+}
+
+@media (min-width: 900px) {
+  .faq-list { gap: 1rem; }
+}
