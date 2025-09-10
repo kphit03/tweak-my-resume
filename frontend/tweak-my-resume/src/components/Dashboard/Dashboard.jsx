@@ -65,7 +65,7 @@ const Dashboard = ({ apiUrl }) => {
       {analysis && (
         <>
           <h3>Analysis</h3>
-          {analysis.fileUploaded && <p><strong>Summary:</strong> {analysis.fileUploaded}</p>}
+          {analysis.fileUploaded && <p><strong>Summary:</strong> {analysis.tailoredBullets[2]}</p>}
           
         </>
       )}
