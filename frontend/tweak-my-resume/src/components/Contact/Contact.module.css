@@ -1,0 +1,107 @@
+.scope {
+  --bg-deep: #402E7A;
+  --primary: #4C3BCF;
+  --accent: #4B70F5;
+  --highlight: #3DC2EC;
+
+  --surface: #ffffff;
+  --ink: #0f1222;
+  --muted: #6b6f80;
+
+  --radius: 14px;
+  --shadow: 0 14px 36px rgba(0,0,0,.14);
+  --soft: 0 8px 22px rgba(0,0,0,.08);
+}
+
+.wrap {
+  min-height: calc(100dvh - 80px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(60rem 60rem at 15% -10%, rgba(76,59,207,.18), transparent 60%),
+    radial-gradient(60rem 60rem at 110% 110%, rgba(61,194,236,.14), transparent 60%),
+    #f8f9fe;
+}
+
+.card {
+  width: 100%;
+  max-width: 760px;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  border: 1px solid #eef0f6;
+  box-shadow: var(--soft);
+  padding: 24px;
+}
+
+.title { margin: 0; font-weight: 800; font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
+.sub { margin: 6px 0 18px; color: var(--muted); }
+
+.row {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+label { font-weight: 700; font-size: .95rem; }
+.req { color: #d22; margin-left: 4px; }
+
+input, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e9ecf5;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  line-height: 1.5;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02) inset;
+}
+
+input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--highlight);
+  outline-offset: 3px;
+  border-color: transparent;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+button:hover { transform: translateY(-1px) scale(1.01); filter: brightness(1.05); box-shadow: var(--shadow); }
+button:active { transform: translateY(1px) scale(0.98); }
+
+.ok {
+  color: #116b2f;
+  background: #e9f7ee;
+  border: 1px solid #cfeedd;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.err {
+  color: #b00020;
+  background: #ffeef0;
+  border: 1px solid #ffd6db;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  .card { padding: 18px; }
+}

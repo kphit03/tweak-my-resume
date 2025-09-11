@@ -2,6 +2,7 @@ package com.tweak.my.resume.tweak_my_resume.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,13 +25,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/","/error", "/api/auth/public").permitAll()
                         .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
                 .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/analyze/**"))
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/analyze/**")
+                        .ignoringRequestMatchers("/api/contact"))
                 .oauth2Login(o -> o
                         .defaultSuccessUrl("http://localhost:5173/dashboard", true)
                         .failureUrl("http://localhost:5173/login?error=true"));

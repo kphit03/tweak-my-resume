@@ -23,6 +23,11 @@
     radial-gradient(60rem 60rem at 10% -10%, rgba(76,59,207,.18), transparent 60%),
     radial-gradient(60rem 60rem at 110% 110%, rgba(61,194,236,.14), transparent 60%),
     #f8f9fe;
+
+  align-content: center; 
+  align-items: start;      
+  justify-items: center;   
+  row-gap: 12px;           
 }
 
 /* Card */
@@ -53,7 +58,7 @@
 }
 
 .title {
-  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  font-size: 1.4rem;
   font-weight: 800;
   margin: 0;
 }

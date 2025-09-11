@@ -7,14 +7,16 @@ const Login = () => {
   const googleLoginUrl = "http://localhost:8080/oauth2/authorization/google";
 
   return (
+    
     <main className={`${styles.scope} ${styles.wrap}`}>
-
+      <h1 id="login-title" className={styles.title}>Sign in to The Resume Tailor</h1>
       <section className={styles.card} role="dialog" aria-labelledby="login-title">
         <div className={styles.backRow}>
             <Link to="/" className={styles.backBtn}>
               Back to Home
             </Link>
         </div>
+
         <div className={styles.logoRow}>
           <img
             src="/the-resume-tailor-transparent.png"
@@ -22,7 +24,6 @@ const Login = () => {
             className={styles.logo}
           />
         </div>
-        <h1 id="login-title" className={styles.title}>The Resume Tailor</h1>
         <p className={styles.subtitle}>
           Sign in to tailor your resume to any job description using AI.
         </p>
