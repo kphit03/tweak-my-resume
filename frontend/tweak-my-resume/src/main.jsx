@@ -8,6 +8,7 @@ import InvalidUrl from './components/InvalidUrl.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import PdfExtractor from './components/PdfExtractor/PdfExtractor.jsx';
 import Faq from './components/Faq/Faq.jsx';
+import Contact from './components/Contact/Contact.jsx';
 
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
  {
   path: "/faq",
   element: <Faq apiUrl={apiUrl}/>
+ },
+ {
+  path: "/support",
+  element: <Contact apiUrl={apiUrl}/>
  }
 ]);
 
