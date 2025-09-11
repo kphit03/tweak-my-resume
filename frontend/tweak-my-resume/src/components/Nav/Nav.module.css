@@ -14,6 +14,7 @@
   background: var(--bg);
   color: var(--text);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  isolation: isolate; 
 }
 
 .inner {
@@ -130,4 +131,103 @@
   border-radius: 8px;
 }
 
+.menuBtn {                        
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 8px;
+  margin-left: 8px;
+  cursor: pointer;
+}
 
+.bar {                            
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  margin: 4px 0;
+  border-radius: 1px;
+}
+
+/* ---------- Mobile collapse ---------- */
+@media (max-width: 1268px) {
+  /* Make room for BOTH hamburger and login on the right */
+  .inner {
+    grid-template-columns: auto 1fr auto auto; /* brand | spacer | hamburger | login */
+    column-gap: 10px;
+  }
+
+  .menuBtn {
+    display: inline-block;
+    grid-column: 3;           /* put hamburger in the 3rd column (right side) */
+    align-self: center;
+    height: 48px;             /* normalize heights for alignment */
+    padding: 0 8px;
+  }
+
+  .right {
+    grid-column: 4;           /* put Login button in the 4th column (far right) */
+    align-self: center;
+  }
+
+  /* Normalize visual heights on mobile so everything centers nicely */
+  .logo { height: 40px; }
+
+  .loginBtn {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    line-height: 1;
+    padding: 0 16px;
+  }
+
+  /* Dropdown stays positioned below the bar (unchanged behavior) */
+  .links {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: grid;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    width: 100%;              /* use container width to avoid 100vw overflow */
+    text-align: end;
+  }
+  .links a {
+    margin-right: 6rem;
+    border-bottom: 2px solid rgb(95, 95, 95);
+    padding-right: 1rem;
+  }
+  .link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;                    
+  height: 2px;
+  background: var(--accent);            
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 200ms ease;
+}
+  .link:hover {
+    color: var(--accent);                 
+    opacity: 1;
+  }
+
+  .link:hover::after {
+    transform: scaleX(1);            
+  }
+  .links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
