@@ -2,78 +2,143 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import PdfExtractor from "../PdfExtractor/PdfExtractor.jsx";
-import Nav from "../Nav/Nav.jsx"
+import Nav from "../Nav/Nav.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
+import styles from "./Dashboard.module.css"; // NOTE: CSS module for overlay + layout
+
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [resumeText, setResumeText] = useState(""); //will be text from child component (PdfExtractor.jsx)
   const [analysis, setAnalysis] = useState(null); //json returned from backend
   const [childError, setChildError] = useState(""); //if error from child
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    let cancelled = false;
+    let cancelled = false; // NOTE: prevents state updates if unmounted
+    const controller = new AbortController(); // NOTE: abort in-flight request on unmount/navigate
+
+    setLoading(true); // NOTE: set loading BEFORE starting the request
 
     async function getUserInfo() {
       try {
         const res = await axios.get(`${apiUrl}/api/auth/me`, { //set GET request to this endpoint
           withCredentials: true,
+          signal: controller.signal, // NOTE: tie axios to AbortController
         });
         if (!cancelled) setUser(res.data); // <-- keep it as an object
+
         // console.log(res.data) //printing user infor if debugging
-      } catch (error) { 
-        if (axios.isAxiosError(error)) {
-          const status = error.response?.status;
-          const msg =
-            error.response?.data?.message || error.message || "Request failed";
-          if (!cancelled) setErrorMsg(msg);
-          if (status === 401) navigate("/login"); // redirect if not logged in
-        } else {
-          if (!cancelled) setErrorMsg(String(error));
+      } catch (error) {
+        if (!cancelled) {
+          if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+            const msg =
+              error.response?.data?.message || error.message || "Request failed";
+            setError(msg);
+            if (status === 401) navigate("/login"); // redirect if not logged in
+          } else {
+            // NOTE: you had setErrorMsg here; matching your state name:
+            setError(String(error));
+          }
         }
         console.error("getUserInfo failed:", error);
+      } finally {
+        if (!cancelled) setLoading(false); // NOTE: stop spinner in finally
       }
     }
+
     getUserInfo();
-    return () => {cancelled = true};
+
+    return () => {
+      cancelled = true;
+      controller.abort(); // NOTE: cancels the request to avoid memory leaks/race
+    };
   }, [apiUrl, navigate, location.pathname]); // run once (or when apiUrl changes)
 
-  if (!user) return <><Nav /><div><h1>Loading...</h1></div></>;
-  if (error) return <h1>{error}</h1>;
+  // NOTE: Show a centered page-level spinner for the initial load (before we have a user)
+  if (loading && !user) {
+    return (
+      <>
+        <Nav />
+        <main className={styles.center}>
+          <Spinner size={128} label="Loading dashboard…" />
+        </main>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Nav />
+        <main className={styles.center}>
+          <p style={{ color: "crimson" }}>{error}</p>
+        </main>
+      </>
+    );
+  }
+
+  if (!user) {
+    // NOTE: Fallback if something else delays user; minimal text to avoid spinner duplication
+    return (
+      <>
+        <Nav />
+        <main className={styles.center}>
+          <p>Loading…</p>
+        </main>
+      </>
+    );
+  }
 
   if (user) {
-  return (
-    <>
-    <Nav />
-    <div className="dashboard-container">
-      <h1>
-        Hello, {user.firstName}
-      </h1>
-      <div>
-        <PdfExtractor 
-          apiUrl={apiUrl}
-          onExtracted={(txt) => setResumeText(txt)}
-          onAnalyzed={(data) => setAnalysis(data)}
-          onError={(msg) => setChildError(msg)}
-          showPreview={false} //debug purposes
-          previewChars={800}/>
-      </div>
-      
-      {childError && <p style={{color:"crimson"}}>{childError}</p>}
-      {resumeText && <p>Extracted {resumeText.length} chars</p>}
-      {analysis && (
-        <>
-          <h3>Analysis</h3>
-          {analysis.fileUploaded && <p><strong>Summary:</strong> {analysis.tailoredBullets[2]}</p>}
-          
-        </>
-      )}
+    return (
+      <>
+        <Nav />
+        {loading && (
+          <div className={styles.overlay} aria-hidden="true">
+            <Spinner size={128} />
+          </div>
+        )}
 
-    </div>
-    </>
-  );
-}
+        <div className={styles.container}>
+          <h1>
+            Hello, {user.firstName}
+          </h1>
+
+          <div className={styles.card}>
+            <PdfExtractor
+              apiUrl={apiUrl}
+              onExtracted={(txt) => setResumeText(txt)}
+              onAnalyzed={(data) => setAnalysis(data)}
+              onError={(msg) => setChildError(msg)}
+              showPreview={false} //debug purposes
+              previewChars={800}
+            />
+          </div>
+
+          {childError && <p style={{ color: "crimson" }}>{childError}</p>}
+          {resumeText && <p>Extracted {resumeText.length} chars</p>}
+
+          {analysis && (
+            <>
+              <h3>Analysis</h3>
+              {/* NOTE: guard optional chaining to avoid crashes if shape changes */}
+              {analysis.fileUploaded && (
+                <p>
+                  <strong>Summary:</strong> {analysis.tailoredBullets?.[2]}
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  return null; // NOTE: unreachable, but keeps TS/linters happy if added later
 };
 
 export default Dashboard;

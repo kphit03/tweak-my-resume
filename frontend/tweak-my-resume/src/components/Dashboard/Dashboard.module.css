@@ -1,0 +1,26 @@
+/* full-page center for initial load */
+.center {
+  min-height: calc(100dvh - 64px); 
+  display: grid;
+  place-items: center;
+}
+
+/* page overlay during background work */
+.overlay {
+  position: fixed;
+  inset: 64px 0 0 0;              /* 64px nav offset */
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(1px);
+  z-index: 100;
+}
+
+/* or, for a card-only overlay */
+.card { position: relative; }
+.cardOverlay {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,.5);
+  border-radius: 12px; 
+}
