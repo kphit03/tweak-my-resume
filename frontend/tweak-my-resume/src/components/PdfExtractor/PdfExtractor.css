@@ -206,6 +206,19 @@
     content: "*";
     color: red;
 }
+
+/* Place spinner and text nicely inside the submit button */
+.pdfx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;              /* space between spinner and text */
+}
+
+.pdfx-btn[disabled] {
+  opacity: .85;
+  cursor: not-allowed;
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .pdfx-container {

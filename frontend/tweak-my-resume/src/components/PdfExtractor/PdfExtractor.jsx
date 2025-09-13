@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { extractPdfText } from "../../pdfText"; //helper function
 import "./PdfExtractor.css";
+import Spinner from "../Spinner/Spinner.jsx"; // ← ADD: inline spinner next to button text
+
 /**
  * This class handles the logic of actually sending the data to our endpoint to process the resumes
  *  Then, it will return the analyzed data in JSON, Dashboard componenet will then display the data
@@ -42,7 +44,7 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
     try {
       //call helper function (which processes pdf and returns string), then set text state var to what we received from function
       setLoading(true);
-      const txt = await extractPdfText(file); 
+      const txt = await extractPdfText(file);
       setText(txt);
       onExtracted?.(txt); //notify parent component (dashboard)
 
@@ -64,7 +66,7 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
       setError(msg);
       onError?.(msg);
     } finally {
-      // reset input field 
+      // reset input field
       if (fileRef.current) fileRef.current.value = "";
       setLoading(false);
     }
@@ -82,7 +84,7 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
     {/* File input with accessible label */}
     <div className="pdfx-input-row">
       <input
-        ref={fileRef}  
+        ref={fileRef}
         id="resume-input"
         type="file"
         accept="application/pdf,.pdf"
@@ -120,8 +122,20 @@ const PdfExtractor = ({apiUrl, onExtracted, onAnalyzed, onError, showPreview, pr
 
     {/* Submit */}
       <div className="pdfx-textarea-actions">
-        <button type="submit" className="pdfx-file-label" disabled={loading}>
-          {loading ? "Processing…" : "Analyze"}
+        <button
+          type="submit"
+          className="pdfx-file-label pdfx-btn"   // ← ADD: utility class for inline layout
+          disabled={loading}
+          aria-busy={loading}                    // ← a11y + CSS hook
+        >
+          {loading ? (
+            <>
+              <Spinner size={16} />              {/* ← spinner next to the text */}
+              <span>Processing…</span>
+            </>
+          ) : (
+            <span>Analyze</span>
+          )}
         </button>
       </div>
     </form>
