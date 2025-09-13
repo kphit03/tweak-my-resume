@@ -56,13 +56,6 @@
   margin-left: 1rem;
 }
 
-.container > .headH2 {
-  color: var(--bg-deep);
-  letter-spacing: 0.2px;
-  text-shadow: 0 1px 0 rgba(0,0,0,.04);
-  margin-left: 1rem;
-}
-
 /* ---------- Analysis card ---------- */
 
 .analysis {
@@ -73,7 +66,7 @@
   border: 1px solid color-mix(in srgb, var(--primary) 12%, #eef0f6);
   border-radius: 14px;
   box-shadow: 0 10px 28px rgba(76, 59, 207, .10);
-  padding: 20px;
+  padding: 40px;
 }
 
 .analysisHeader {
