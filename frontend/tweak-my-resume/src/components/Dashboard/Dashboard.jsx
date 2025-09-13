@@ -120,19 +120,81 @@ const Dashboard = ({ apiUrl }) => {
           </div>
 
           {childError && <p style={{ color: "crimson" }}>{childError}</p>}
-          {resumeText && <p>Extracted {resumeText.length} chars</p>}
 
+          {/* ---------- Analysis UI (renders once PdfExtractor returns JSON) ---------- */}
           {analysis && (
             <>
-              <h3>Analysis</h3>
-              {/* NOTE: guard optional chaining to avoid crashes if shape changes */}
-              {analysis.fileUploaded && (
-                <p>
-                  <strong>Summary:</strong> {analysis.tailoredBullets?.[2]}
-                </p>
-              )}
+              {/* NOTE: Analysis results card */}
+              <section className={styles.analysis}>
+                <header className={styles.analysisHeader}>
+                  <div className={styles.file}>
+                    <span className={styles.fileLabel}>File:</span>
+                    <span className={styles.fileName}>
+                      {analysis.fileUploaded || "—"}
+                    </span>
+                  </div>
+
+                  <h2 className={styles.h2}>Tailored Analysis</h2>
+
+                  {analysis.summary && (
+                    <p className={styles.summary}>{analysis.summary}</p>
+                  )}
+                </header>
+
+                {/* Strengths & Gaps */}
+                <div className={styles.grid2}>
+                  <div className={styles.section}>
+                    <h3 className={styles.h3}>Strengths</h3>
+                    <ul className={styles.list}>
+                      {(analysis.strengths ?? []).map((item, i) => (
+                        <li key={`str-${i}`}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className={styles.section}>
+                    <h3 className={styles.h3}>Gaps</h3>
+                    <ul className={styles.listWarn}>
+                      {(analysis.gaps ?? []).map((item, i) => (
+                        <li key={`gap-${i}`}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Tailored bullets */}
+                <div className={styles.section}>
+                  <h3 className={styles.h3}>Tailored Bullet Suggestions</h3>
+                  <ol className={styles.olist}>
+                    {(analysis.tailoredBullets ?? []).map((b, i) => (
+                      <li key={`tb-${i}`}>{b}</li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* ATS keywords as pills */}
+                <div className={styles.section}>
+                  <h3 className={styles.h3}>ATS Keyword Considerations</h3>
+                  <div className={styles.pills}>
+                    {(analysis.atsKeywords ?? []).map((kw, i) => (
+                      <span className={styles.pill} key={`kw-${i}`}>{kw}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key recommendations */}
+                <div className={styles.section}>
+                  <h3 className={styles.h3}>Key Recommendations</h3>
+                  <ul className={styles.listCheck}>
+                    {(analysis.keyRecommendations ?? []).map((rec, i) => (
+                      <li key={`rec-${i}`}>{rec}</li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
             </>
           )}
+
         </div>
       </>
     );

@@ -1,6 +1,24 @@
+:global(:root) {
+  --bg-deep: #402E7A;
+  --primary: #4C3BCF;
+  --accent: #4B70F5;
+  --highlight: #3DC2EC;
+
+  --surface: #ffffff;
+  --ink: #0f1222;
+  --muted: #6b6f80;
+}
+
+/* Adjustable target height for equal-height cards (desktop) */
+:root {
+  --section-max-h: 22rem; 
+}
+
+/*  Page-level utilities  */
+
 /* full-page center for initial load */
 .center {
-  min-height: calc(100dvh - 64px); 
+  min-height: calc(100dvh - 64px); /* below sticky nav */
   display: grid;
   place-items: center;
 }
@@ -16,11 +34,209 @@
   z-index: 100;
 }
 
-/* or, for a card-only overlay */
 .card { position: relative; }
 .cardOverlay {
   position: absolute; inset: 0;
   display: grid; place-items: center;
   background: rgba(255,255,255,.5);
-  border-radius: 12px; 
+  border-radius: 12px;
 }
+
+/* Keeps the main content readable and provides a positioning context */
+.container {
+  position: relative;
+  padding: 20px;
+  color: var(--ink);
+}
+
+.container > h1 {
+  color: var(--bg-deep);
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+
+/* ---------- Analysis card ---------- */
+
+.analysis {
+  margin-top: 20px;
+  background: var(--surface);
+  /* Fallback border then brand-tinted border using color-mix */
+  border: 1px solid #eef0f6;
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, #eef0f6);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(76, 59, 207, .10);
+  padding: 20px;
+}
+
+.analysisHeader {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.file {
+  display: inline-flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: .95rem;
+  color: #475069;
+}
+.fileLabel { font-weight: 700; color: var(--ink); }
+.fileName  { font-weight: 600; color: var(--primary); word-break: break-word; }
+
+.h2 {
+  margin: 6px 0 2px;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: 800;
+  color: var(--ink);
+  display: inline-block;
+}
+
+.summary {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Two-column grid for strengths/gaps on wide screens */
+.grid2 {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 12px;
+
+  /* Equal-height rows */
+  align-items: stretch;
+  grid-auto-rows: 1fr;            
+
+  /* Separation from next stacked section */
+  margin-bottom: 16px;
+}
+@media (max-width: 720px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;         
+    margin-bottom: 12px;         
+  }
+}
+
+.grid2 > .section { margin-top: 0 !important; } 
+/* Generic section card */
+.section {
+  /* fallback then brand-washed background/border */
+  background: #fafbff;
+  background: color-mix(in srgb, var(--accent) 6%, #fafbff);
+  border: 1px solid #eef0f6;
+  border: 1px solid color-mix(in srgb, var(--accent) 14%, #eef0f6);
+  border-radius: 12px;
+  padding: 14px;
+
+  /* Fill the grid track */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  /* Let inner content (list) scroll, not the card itself */
+  max-height: var(--section-max-h);
+  overflow: hidden;               
+  min-height: 0;                  
+}
+@media (max-width: 720px) {
+  .section {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  position: relative;
+  padding-left: 10px;
+  flex: 0 0 auto;                 /* title stays visible */
+}
+/* left accent bar */
+.h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+}
+
+/* Lists */
+.list,
+.listWarn,
+.listCheck,
+.olist {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--ink);
+  line-height: 1.5;
+
+  /* Make the list the scrolling region (within the capped card) */
+  flex: 1 1 auto;
+  overflow: auto;              
+  min-height: 0;                  
+}
+@media (max-width: 720px) {
+  .list,
+  .listWarn,
+  .listCheck,
+  .olist {
+    overflow: visible;
+  }
+}
+
+.listWarn li  { list-style: "⚠️  "; padding-inline-start: .25rem; margin-left: .5rem;}
+.listCheck li { list-style: "✅  "; padding-inline-start: .25rem; margin-left: .5rem;}
+.olist li     { margin: 4px 0; }
+
+/* Subtle scrollbar styling */
+.list::-webkit-scrollbar { width: 10px; }
+.listWarn::-webkit-scrollbar,
+.listCheck::-webkit-scrollbar { width: 10px; }
+.list::-webkit-scrollbar-thumb,
+.listWarn::-webkit-scrollbar-thumb,
+.listCheck::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent) 24%, #e6e8f6);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* Keyword pills */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  /* fallback then brand-tinted backgrounds/borders */
+  background: #eef0fe;
+  background: color-mix(in srgb, var(--accent) 14%, #fff);
+  border: 1px solid #dfe2fb;
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, #dfe2fb);
+  color: #262a54;
+  font-weight: 700;
+  font-size: .9rem;
+  box-shadow: 0 2px 8px rgba(75, 112, 245, .12);
+}
+.pill:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+  transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 16px rgba(75, 112, 245, .18);
+}
+
+/* space between stacked sections inside the analysis card
+   (applies only to direct children of .analysis, not grid items) */
+.analysis > .section + .section { margin-top: 12px; } /* ← safe spacing for non-grid stacks */
