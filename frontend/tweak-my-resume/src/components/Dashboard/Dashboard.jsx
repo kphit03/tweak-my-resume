@@ -105,7 +105,7 @@ const Dashboard = ({ apiUrl }) => {
 
         <div className={styles.container}>
           <h1>
-            Hello, {user.firstName}
+            Hello, {user.firstName}, <br /><h2 className={styles.headH2}>Upload your resume below to get started</h2>
           </h1>
 
           <div className={styles.card}>
