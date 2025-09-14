@@ -8,7 +8,7 @@ const Nav = () => {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   const { user, loading, login, logout } = useAuth();
-
+  
   return (
     <nav className={`${styles.nav} ${styles.navigation}`} aria-label="Primary">
       <div className={styles.inner}>

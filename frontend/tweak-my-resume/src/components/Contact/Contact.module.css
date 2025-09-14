@@ -105,3 +105,27 @@ button:active { transform: translateY(1px) scale(0.98); }
 @media (max-width: 560px) {
   .card { padding: 18px; }
 }
+
+/* inline spinner next to the button text */
+.inlineSpinner {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px; /* space between spinner and label */
+  color: currentColor; /* spinner matches button text color */
+}
+
+/* subtle “busy” look on the button */
+.isLoading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.95;
+  cursor: default;
+}
+
+/* prevent hover/active styles while disabled */
+button:disabled {
+  pointer-events: none;
+  filter: none;
+  box-shadow: none;
+}

@@ -32,11 +32,13 @@ const Dashboard = ({ apiUrl }) => {
 
         // console.log(res.data) //printing user infor if debugging
       } catch (error) {
+        // STEP 1 CHANGE: treat aborted requests as benign and DO NOT log them
+        if (axios.isCancel?.(error) || error?.code === "ERR_CANCELED") {
+          // benign: request was aborted during unmount/nav; nothing to do
+          return;
+        }
+
         if (!cancelled) {
-            if (axios.isCancel?.(error) || error?.code === "ERR_CANCELED") {
-            // benign: request was aborted during unmount/nav
-            return;
-          }
           if (axios.isAxiosError(error)) {
             const status = error.response?.status;
             const msg =
@@ -48,6 +50,8 @@ const Dashboard = ({ apiUrl }) => {
             setError(String(error));
           }
         }
+
+        // STEP 1 CHANGE: only log real errors (not canceled)
         console.error("getUserInfo failed:", error);
       } finally {
         if (!cancelled) setLoading(false); // NOTE: stop spinner in finally
@@ -108,9 +112,11 @@ const Dashboard = ({ apiUrl }) => {
         )}
 
         <div className={styles.container}>
-          <h1>
-            Hello, {user.firstName}, <br /><div><h2 className={styles.headH2}>Upload your resume below to get started</h2></div>
-          </h1>
+          <div className={styles.headingRow}>
+            <h1 className={styles.pageTitle}>Hello, {user.firstName}</h1>
+            <h2 className={styles.headH2}>Upload your resume below to get started</h2>
+          </div>
+
 
           <div className={styles.card}>
             <PdfExtractor

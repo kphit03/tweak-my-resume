@@ -241,3 +241,49 @@
 /* space between stacked sections inside the analysis card
    (applies only to direct children of .analysis, not grid items) */
 .analysis > .section + .section { margin-top: 12px; } /* ← safe spacing for non-grid stacks */
+
+/* Reset native heading margins only for this area */
+.container h1,
+.container h2 { margin: 0; }
+
+.container > h1 { margin-left: 0; }
+
+/* Flex row that baseline-aligns the two headings */
+.headingRow {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;   
+  gap: 12px;               
+  flex-wrap: wrap;         
+  margin: 0 1rem 12px;     
+}
+/* Primary page title */
+.pageTitle {
+  color: var(--bg-deep);
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.04);
+  font-weight: 800;
+  line-height: 1.1;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+/* Subheading that aligns with the baseline of the h1 */
+.headH2 {
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+/* On small screens, stack them instead of forcing a single line */
+@media (max-width: 600px) {
+  .headingRow {
+    align-items: flex-start;
+    gap: 4px;
+    margin: 0 1rem 10px;
+  }
+  .headH2 {
+    display: block;
+    margin-top: 2px; /* a hair of vertical rhythm when stacked */
+  }
+}

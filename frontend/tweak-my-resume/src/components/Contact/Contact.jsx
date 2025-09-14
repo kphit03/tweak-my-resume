@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Nav from "../Nav/Nav.jsx";
 import styles from "./Contact.module.css";
 import axios from "axios";
-
+import Spinner from "../Spinner/Spinner.jsx"; 
 const Contact = ({ apiUrl }) => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState({ type: "", msg: "" });
@@ -71,7 +71,19 @@ const Contact = ({ apiUrl }) => {
               </div>
 
               <div className={styles.actions}>
-                <button type="submit" disabled={loading}>
+                {/* When loading, show spinner + "Sending…" and disable the button */}
+                <button
+                  type="submit"
+                  className={loading ? `${styles.isLoading}` : undefined}
+                  disabled={loading}
+                  aria-busy={loading ? "true" : "false"}
+                  aria-live="polite"
+                >
+                  {loading && (
+                    <span className={styles.inlineSpinner}>
+                      <Spinner size={16} />
+                    </span>
+                  )}
                   {loading ? "Sending…" : "Send message"}
                 </button>
               </div>
