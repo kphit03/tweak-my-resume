@@ -33,6 +33,10 @@ const Dashboard = ({ apiUrl }) => {
         // console.log(res.data) //printing user infor if debugging
       } catch (error) {
         if (!cancelled) {
+            if (axios.isCancel?.(error) || error?.code === "ERR_CANCELED") {
+            // benign: request was aborted during unmount/nav
+            return;
+          }
           if (axios.isAxiosError(error)) {
             const status = error.response?.status;
             const msg =
@@ -105,7 +109,7 @@ const Dashboard = ({ apiUrl }) => {
 
         <div className={styles.container}>
           <h1>
-            Hello, {user.firstName}, <br /><h2 className={styles.headH2}>Upload your resume below to get started</h2>
+            Hello, {user.firstName}, <br /><div><h2 className={styles.headH2}>Upload your resume below to get started</h2></div>
           </h1>
 
           <div className={styles.card}>

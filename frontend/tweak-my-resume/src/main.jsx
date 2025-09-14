@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard/Dashboard.jsx';
 import PdfExtractor from './components/PdfExtractor/PdfExtractor.jsx';
 import Faq from './components/Faq/Faq.jsx';
 import Contact from './components/Contact/Contact.jsx';
-
+import { AuthProvider } from './AuthContext.jsx';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL
 const router = createBrowserRouter([
@@ -42,6 +42,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    {/* Provide session state (user, loading, error, login, logout) to the whole app */}
+    <AuthProvider apiUrl={apiUrl}>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

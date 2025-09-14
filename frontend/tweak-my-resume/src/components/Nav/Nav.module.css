@@ -231,3 +231,25 @@
     pointer-events: auto;
   }
 }
+.isLoading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;            /* space between spinner and text */
+  cursor: default;
+  opacity: 0.9;        /* subtle “busy” look */
+}
+
+.inlineSpinner {
+  display: inline-flex;
+  align-items: center;
+  /* inherit color so spinner matches the button text */
+  color: currentColor;
+}
+
+/* Prevent hover/active animations while disabled */
+.loginBtn:disabled {
+  pointer-events: none;
+  filter: none;
+  box-shadow: none;
+}
+

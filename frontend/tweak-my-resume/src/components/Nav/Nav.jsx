@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Nav.module.css";
 import { HashLink } from "react-router-hash-link";
+import { useAuth } from "../../AuthContext";
+import Spinner from "../Spinner/Spinner";
 const Nav = () => {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+  const { user, loading, login, logout } = useAuth();
+
   return (
     <nav className={`${styles.nav} ${styles.navigation}`} aria-label="Primary">
       <div className={styles.inner}>
@@ -46,9 +50,43 @@ const Nav = () => {
 
         {/* Right: CTA */}
         <div className={styles.right}>
-          <Link to="/login" className={styles.loginBtn} id="login-btn">
-            Login
-          </Link>
+          {loading ? (
+            // Loading state — disabled button with inline spinner
+            <button
+              type="button"
+              className={`${styles.loginBtn} ${styles.isLoading}`}
+              disabled
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <span className={styles.inlineSpinner}>
+                <Spinner size={16} />   {/* or 18/20 if you prefer */}
+              </span>
+              <span>Loading…</span>
+            </button>
+          ) : user ? (
+            // Logged-in → show Logout as a button (action, not navigation)
+            <button
+              type="button"
+              className={styles.loginBtn}
+              onClick={logout}              // ends session via POST /logout
+            >
+              Logout
+            </button>
+          ) : (
+            // Logged-out → show Login, but call login() to hit OAuth endpoint
+            <Link
+              to="/login"
+              className={styles.loginBtn}
+              id="login-btn"
+              onClick={(e) => {
+                e.preventDefault();         // prevent client route; use server OAuth URL
+                login();                    
+              }}
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
