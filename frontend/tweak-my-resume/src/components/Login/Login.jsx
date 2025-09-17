@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Login.module.css";
 
-const Login = () => {
+const Login = ({apiUrl}) => {
   // Spring Security default Google login endpoint:
-  const googleLoginUrl = "http://localhost:8080/oauth2/authorization/google";
+  const googleLoginUrl = `${apiUrl}/oauth2/authorization/google`;
 
   return (
     
