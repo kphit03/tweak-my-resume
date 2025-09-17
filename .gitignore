@@ -3,3 +3,4 @@
 .idea/vcs.xml
 .idea/workspace.xml
 frontend/tweak-my-resume/src/components/Testing.jsx
+backend/tweak-my-resume/.env
