@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Faq.module.css';
 import Nav from '../Nav/Nav';
-
+import Footer from '../Footer/Footer';
 export default function Faq() {
   return (
     <>
@@ -87,6 +87,7 @@ export default function Faq() {
           </div>
           
         </section>
+        <Footer />
       </main>
     </>
   );

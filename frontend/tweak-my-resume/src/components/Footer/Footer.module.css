@@ -1,0 +1,70 @@
+/* Match your app palette */
+.theme {
+  --bg: #402E7A;
+  --primary: #4C3BCF;
+  --accent: #4B70F5;
+  --highlight: #3DC2EC;
+  --text: #ffffff;
+}
+
+.footer {
+  background: var(--bg);
+  color: var(--text);
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.left {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brand {
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.copy {
+  opacity: .85;
+  font-size: .9rem;
+}
+
+.right {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.link {
+  color: rgba(255,255,255,.95);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .95rem;
+  transition: color .16s ease, opacity .16s ease;
+}
+.link:hover { color: var(--highlight); }
+
+/* Stack on small screens */
+@media (max-width: 640px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .right {
+    gap: 12px 16px;
+  }
+}

@@ -5,7 +5,7 @@ import PdfExtractor from "../PdfExtractor/PdfExtractor.jsx";
 import Nav from "../Nav/Nav.jsx";
 import Spinner from "../Spinner/Spinner.jsx";
 import styles from "./Dashboard.module.css"; // NOTE: CSS module for overlay + layout
-
+import Footer from "../Footer/Footer.jsx";
 const Dashboard = ({ apiUrl }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -206,6 +206,7 @@ const Dashboard = ({ apiUrl }) => {
           )}
 
         </div>
+        <Footer />
       </>
     );
   }

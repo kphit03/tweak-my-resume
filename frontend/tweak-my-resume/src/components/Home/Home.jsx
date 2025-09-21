@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
-
+import Footer from '../Footer/Footer';
 const Home = () => {
   return (
     <main className={`${styles.page} ${styles.home}`}>
@@ -118,15 +118,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA STRIP */}
-      <section className={styles.ctaStrip}>
-        <div className={styles.containerStrip}>
-          <h3>Ready to tailor your next application?</h3>
-          <Link to="/login" className={styles.ctaPrimaryAlt}>
-            Try it now
-          </Link>
-        </div>
-      </section>
+      <Footer />
     </main>
   );
 };

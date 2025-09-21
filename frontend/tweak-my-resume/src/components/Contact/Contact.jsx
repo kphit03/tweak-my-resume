@@ -4,7 +4,7 @@ import styles from "./Contact.module.css";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner.jsx";
 import { z } from "zod";
-
+import Footer from "../Footer/Footer.jsx";
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter at least 2 characters.").max(80, "Name is too long."),
   email: z.string().trim().email("Please enter a valid email.").max(120, "Email is too long."),
@@ -155,6 +155,7 @@ const Contact = ({ apiUrl }) => {
             </form>
           </div>
         </section>
+        <Footer />
       </main>
     </>
   );
